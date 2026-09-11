@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: opsflow-db
+    environment:
+      POSTGRES_DB: opsflow
+      POSTGRES_USER: opsflow
+      POSTGRES_PASSWORD: opsflow123
+    ports:
+      - "5434:5432"
+    volumes:
+      - opsflow-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: opsflow-app-compose
+    ports:
+      - "8082:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/opsflow
+      SPRING_DATASOURCE_USERNAME: opsflow
+      SPRING_DATASOURCE_PASSWORD: opsflow123
+    depends_on:
+      - postgres
+
+volumes:
+  opsflow-data:
