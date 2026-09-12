@@ -54,6 +54,11 @@ jobs:
           mvn clean package -DskipTests
 
           echo "Building and starting containers..."
+
+          export OPSFLOW_VERSION=$(git rev-parse --short HEAD)
+
+          echo "Deploying version: $OPSFLOW_VERSION"
+
           docker compose up -d --build
 
           echo "Waiting for application health..."
