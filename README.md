@@ -11,44 +11,44 @@ The CRUD functionality is intentionally simple. The focus is on how the applicat
 ## Architecture
 
 ```text
-                         Internet
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │   AWS EC2     │
-                    │    Ubuntu     │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │     Nginx     │
-                    │     :80       │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │ Spring Boot   │
-                    │     API       │
-                    │    :8081      │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │  PostgreSQL   │
-                    │     :5432     │
-                    └───────────────┘
-
-              Monitoring / Observability
-
-                    Spring Boot
-                         │
-                  Actuator / Micrometer
-                         │
-                         ▼
-                    Prometheus :9090
-                         │
-                         ▼
-                     Grafana :3000
+                             Internet
+                                │
+                                ▼
+                        ┌───────────────┐
+                        │   AWS EC2     │
+                        │    Ubuntu     │
+                        └───────┬───────┘
+                                │
+                                ▼
+                        ┌───────────────┐
+                        │     Nginx     │
+                        │     :80       │
+                        └───────┬───────┘
+                                │
+                                ▼
+                        ┌───────────────┐
+                        │ Spring Boot   │
+                        │     API       │
+                        │    :8081      │
+                        └───────┬───────┘
+                                │
+                                ▼
+                        ┌───────────────┐
+                        │  PostgreSQL   │
+                        │     :5432     │
+                        └───────────────┘
+    
+                    Monitoring / Observability
+    
+                           Spring Boot
+                                │
+                       Actuator / Micrometer
+                                │
+                                ▼
+                        Prometheus :9090
+                                │
+                                ▼
+                          Grafana :3000
 ```
 
 Only Nginx is exposed publicly. The application, database, and monitoring stack communicate through the internal Docker network.
