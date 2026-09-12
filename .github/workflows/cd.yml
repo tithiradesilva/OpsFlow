@@ -55,17 +55,23 @@ jobs:
 
           echo "Waiting for application health..."
 
+          HEALTHY=false
+
           for i in $(seq 1 30); do
             if curl -fsS http://localhost/actuator/health > /dev/null; then
-              echo "Deployment successful"
-              exit 0
+              HEALTHY=true
+              break
             fi
 
             echo "Waiting for application... ($i/30)"
             sleep 2
           done
 
-          echo "Deployment health check failed"
-          exit 1
+          if [ "$HEALTHY" = true ]; then
+            echo "Deployment successful"
+          else
+            echo "Deployment health check failed"
+            exit 1
+          fi
 
           REMOTE_COMMANDS
