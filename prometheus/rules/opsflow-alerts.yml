@@ -1,0 +1,11 @@
+groups:
+  - name: opsflow-alerts
+    rules:
+      - alert: OpsFlowApplicationDown
+        expr: up{job="opsflow-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "OpsFlow application is down"
+          description: "The OpsFlow application has been unreachable for more than 1 minute."
