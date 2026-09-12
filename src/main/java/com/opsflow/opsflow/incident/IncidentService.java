@@ -1,5 +1,7 @@
 package com.opsflow.opsflow.incident;
 
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +21,10 @@ public class IncidentService {
 
     public Incident getById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Incident not found"));
+                .orElseThrow(() -> new ResponseStatusException(
+                   HttpStatus.NOT_FOUND,
+                   "Incident not found"
+                ));
     }
 
     public Incident create(Incident incident) {
