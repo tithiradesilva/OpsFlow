@@ -18,7 +18,18 @@ jobs:
 
           echo "Preparing SSH..."
 
-          install -m 700 -d "$HOME/.ssh"
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+
+          echo "SSH directory created"
+          echo "Checking SSH key secret..."
+
+          if [ -z "$EC2_SSH_KEY" ]; then
+            echo "ERROR: EC2_SSH_KEY secret is empty"
+            exit 1
+          fi
+
+          echo "SSH key secret is present"
 
           printf '%s\n' "$EC2_SSH_KEY" > "$HOME/.ssh/opsflow-key.pem"
           chmod 600 "$HOME/.ssh/opsflow-key.pem"
